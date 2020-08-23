@@ -18,6 +18,8 @@ class ReactCanvas extends React.Component {
         // boilerplate method binding
         this.drawFirstFrame = this.drawFirstFrame.bind(this);
         this.drawNextFrame = this.drawNextFrame.bind(this);
+        this.onMouseDownCanvas = this.onMouseDownCanvas.bind(this);
+        this.onMouseUpCanvas = this.onMouseUpCanvas.bind(this);
     }
 
     componentDidMount() {
@@ -50,13 +52,28 @@ class ReactCanvas extends React.Component {
         requestAnimationFrame(this.drawNextFrame);
     }
 
+    onMouseDownCanvas(event) {
+        console.log("Detect mouse down on canvas");
+    }
+
+    onMouseUpCanvas(event) {
+        console.log("Detect mouse up on canvas");
+    }
+
     render() {
         // The <canvas> element creates a fixed-size drawing surface that exposes one or more
         // rendering contexts, which are used to create and manipulate the content shown.
         // The canvas is initially blank. To display something, a script first need to access
         // the rendering context and draw on it.
         return (
-            <canvas id="canvas" height={this.canvasHeight} width={this.canvasWidth} ref={this.canvasRef}>
+            <canvas
+                id="canvas"
+                height={this.canvasHeight}
+                width={this.canvasWidth}
+                ref={this.canvasRef}
+                onMouseDown={this.onMouseDownCanvas}
+                onMouseUp={this.onMouseUpCanvas}
+            >
             </canvas>
         );
     }
