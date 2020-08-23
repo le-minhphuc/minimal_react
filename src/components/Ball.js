@@ -5,15 +5,16 @@ function randomRgbString() {
     return `rgb(${r},${g},${b})`;
 }
 
-function Ball(canvasContextRef, xCoord, yCoord, xLowerBound, xUpperBound, yLowerBound, yUpperBound) {
-    this.xCoord = xCoord;
-    this.yCoord = yCoord;
+function Ball(canvasContextRef, xUpperBound, yUpperBound) {
     this.radius = 10;
 
-    this.xLowerBound = xLowerBound + this.radius;
+    this.xLowerBound = this.radius;
     this.xUpperBound = xUpperBound - this.radius;
-    this.yLowerBound = yLowerBound + this.radius;
+    this.yLowerBound = this.radius;
     this.yUpperBound = yUpperBound - this.radius;
+
+    this.xCoord = Math.random() * 9 / 10 * (this.xUpperBound - this.xLowerBound) + this.xLowerBound;
+    this.yCoord = Math.random() * 9 / 10 * (this.yUpperBound - this.yLowerBound) + this.yLowerBound;
 
     this.color = randomRgbString();
 
@@ -24,7 +25,7 @@ function Ball(canvasContextRef, xCoord, yCoord, xLowerBound, xUpperBound, yLower
         canvasContextRef.fill();
     };
 
-    this.xVelocity = 3 / 10;
+    this.xVelocity = (1 + Math.random() * 2) / 10;
     this.yVelocity = 0;
     this.xAcceleration = 0;
     this.yAcceleration = 0.81 / 1000; // account for millis unit used for interFrameDelay

@@ -10,7 +10,8 @@ class ReactCanvas extends React.Component {
         this.canvasWidth = 1200;
 
         // properties needed for animation
-        this.ball = null; // set in componentDidMount
+        this.ballsCount = 50; // TODO: could be made a props if needed
+        this.balls = []; // populated in componentDidMount
         this.ctx2D = null;
         this.now = 0;
 
@@ -23,27 +24,27 @@ class ReactCanvas extends React.Component {
         // access 2D rendering context - CanvasRenderingContext2D
         if (this.canvasRef.current.getContext) { // check if browser supports canvas
             this.ctx2D = this.canvasRef.current.getContext('2d');
-            this.ball = new Ball(
-                this.ctx2D,
-                Math.floor(this.canvasWidth / 2), Math.floor(this.canvasHeight / 2), // try initializing a ball in the middle of the canvas
-                0, this.canvasWidth,
-                0, this.canvasHeight
-            );
+            for (let ii = 0; ii < this.ballsCount; ++ii) {
+                this.balls.push(new Ball(
+                    this.ctx2D,
+                    this.canvasWidth,
+                    this.canvasHeight
+                ));
+            }
             requestAnimationFrame(this.drawFirstFrame);
         }
     }
 
     drawFirstFrame(now) {
-        this.ball.draw();
-
+        this.balls.forEach(ball => ball.draw());
         this.now = now;
         requestAnimationFrame(this.drawNextFrame);
     }
 
     drawNextFrame(now) {
-        this.ball.setNextFrameAttributes(now - this.now);
+        this.balls.forEach(ball => ball.setNextFrameAttributes(now - this.now));
         this.ctx2D.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.ball.draw();
+        this.balls.forEach(ball => ball.draw());
 
         this.now = now;
         requestAnimationFrame(this.drawNextFrame);
