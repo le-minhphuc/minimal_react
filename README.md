@@ -44,3 +44,13 @@ This tells `npm` that if we type `npm run start`, it should invoke `react-script
         npm run start
 
 TADA! A browser is open with Hello, World! printed in bold!
+
+## Create a ReactJS application from Express server
+
+1. Bundle static resources together:
+
+        npm run build
+
+2. Run Express server:
+
+        npm run express

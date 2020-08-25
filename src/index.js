@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import ExampleEffectHook from './components/EffectHook';
-import ReactCanvas from './components/Canvas';
+import ExpressExperiment from './components/ExpressExperiment';
 
 ReactDOM.render(
-    <ReactCanvas />,
+    <ExpressExperiment />,
     document.getElementById('root')
 );
